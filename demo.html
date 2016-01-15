@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <link href='demo.css' rel='stylesheet' type='text/css'>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+        <script src="floatlabels.js" type="text/javascript"></script>
+        <title>floatlabels.js Demo</title>
+
+        <style>
+            input { width: 400px; padding-left: 8px; }
+        </style>
+    </head>
+
+    <body>
+
+        <h1>floatlabels.js</h1>
+        <h2>Introduction to floatlabels</h2>
+
+        <p>
+            The Float Label Pattern found his success after <a href="http://bradfrostweb.com/blog/post/float-label-pattern/">Brad Frost</a> wrote a blog post about Float Label Patterns.
+            The idea is based on a <a href="http://dribbble.com/shots/1254439--GIF-Float-Label-Form-Interaction?list=users" target="_blank">Dribbble Shot by Matt D Smith</a>.
+            The Pattern is easy to explain. On User Interaction with an input field the placeholder value moves up, and is displayed above the typed text. This Plugin offers you the possibility to upgrade your forms with this famous pattern.
+
+            <b>This project is a fork of floatlabels.js bye Marcus Pohorely - clubdesign</b>
+        </p>
+
+
+        <h2>Demo</h2>
+
+        <p>Type <strong>anything</strong> into the input textfield to see the floated label in action.</p>
+        <input type="text" placeholder="Start typing..." data-label="This is a floated Label. It stays there until the field is cleared.">
+
+        <h2>Installation & Dependencies</h2>
+
+        <h3>JS-Part</h3>
+        <p>
+            Include the latest release of <strong>jQuery</strong>. The Google AJAX Libraries API can be used for this but you could also host the library yourself.<br>
+            Download floatlabels.min.js, upload the file to your server & include it in your code AFTER jQuery.<br><br>
+            Currently floatlabels.js is dependant from jQuery <strong>1.8+</strong>. Lower Versions have not been tested.
+        </p>
+
+        <h3>CSS-Part</h3>
+
+        <p>
+            You need to include some key css classes into your project. They are defined in demo.css. You can change them to your own need.
+            Details are described under usage.
+        </p>
+
+        <h2>Usage</h2>
+
+        <ol>
+                <li>Include jquery.min.js and floatlabels.min.js </li>
+            <li>
+                initialized floatlabel with simple call:<br>
+                <br>
+                &lt;script&gt;
+                $('input').floatlabel();
+                &lt;/script&gt;
+            </li>
+            <li>
+                Add plugin options if the default functionality should be changed
+                <p>
+                    <strong>slideInput</strong>             <em>Default: true</em><br>
+                    <span>
+                        If true the input field will slide down (height) to fit the floating label.
+                    </span>
+                </p>
+                <p>
+                    <strong>typeMatches</strong>            <em>Default: /text|password|email|number|search|url/</em><br>
+                    <span>
+                        This Regex Expression is triggered at the initializiation of the script. It checks the type="text" if the element the plugin is triggered on is valid. Some advanced users might want to expand this to the new HTML5 textfield types.
+                    </span>
+                </p>
+            </li>
+            <li>
+                Include the necessary styles of demo.css to your project and change them on your needs.<br>
+                Here is a description of the used classes:
+
+                <h3>floatlabel-label</h3>
+                <p>
+                    It's the floating label itself which holds the left position and style of the displayed placeholder text
+                </p>
+
+                <h3>floatlabel-label-inactive, floatlabel-active</h3>
+                <p>
+                    Just adds <i>display: none</i>, <i>display: inline-block</i> and the top position of the label to get
+                    some fancy animation
+                </p>
+
+                <h3>floatlabel-input</h3>
+                <p>
+                    Initializing the plugin adds this class to all input fields.<br>
+                    If you use <i>slideInput: false (default true)</i> add the needed padding either here or in a
+                    general project class.<br>
+                    <br>
+                    <b>Note: You might need to use <i>!important</i> marker to overwrite your own padding values of input fields</b>
+                </p>
+
+                <h3>floatlabel-input-slide</h3>
+                <p>
+                    input field Padding added with option <i>slideInput: true (default true)</i>
+                </p>
+
+                <h3>floatlabel-label-focus</h3>
+                <p>
+                    Added to the label if the input field gets focus. Gives teh Possibility to overwrite color or other styles of the placeholder text
+                </p>
+            </li>
+            <li>
+                The script cycles through all your selected input fields and converts them to inputs with floated labels. <strong>Done</strong>.
+            </li>
+        </ol>
+        <script>
+            $('input').floatlabel();
+        </script>
+  </body>
+</html>

@@ -11,15 +11,8 @@
         var pluginName = "floatlabel",
             defaults = {
                 slideInput                      : true,
-                labelStartTop                   : '0px',
-                labelEndTop                     : '0px',
-                paddingOffset                   : '12px',
-                transitionDuration              : 0.1,
-                transitionEasing                : 'ease-in-out',
                 labelClass                      : '',
                 typeMatches                     : /text|password|email|number|search|url|tel/,
-                focusColor                      : '#838780',
-                blurColor                       : '#2996cc'
             };
         function Plugin ( element, options ) {
             this.$element       = $(element);
@@ -30,68 +23,44 @@
             init: function () {
                 var self          = this,
                     settings      = this.settings,
-                    transDuration = settings.transitionDuration,
-                    transEasing   = settings.transitionEasing,
-                    thisElement   = this.$element;              
-                var animationCss = {
-                    '-webkit-transition'            : 'all ' + transDuration + 's ' + transEasing,
-                    '-moz-transition'               : 'all ' + transDuration + 's ' + transEasing,
-                    '-o-transition'                 : 'all ' + transDuration + 's ' + transEasing,
-                    '-ms-transition'                : 'all ' + transDuration + 's ' + transEasing,
-                    'transition'                    : 'all ' + transDuration + 's ' + transEasing
-                };
+                    thisElement   = this.$element,
+                    elementID,
+                    placeholderText,
+                    floatingText,
+                    extraClasses
+                ;
                 if( thisElement.prop('tagName').toUpperCase() != 'INPUT' &&
                     thisElement.prop('tagName').toUpperCase() != 'TEXTAREA') { return; }
                 if( thisElement.prop('tagName').toUpperCase() === 'INPUT' &&
                     !settings.typeMatches.test( thisElement.attr('type') ) ) { return; }
-                var elementID = thisElement.attr('id');
+                placeholderText     = thisElement.attr('placeholder');
+                if( typeof(placeholderText) === 'undefined' ) { return; }
+                elementID = thisElement.attr('id');
                 if( !elementID ) {
                     elementID = Math.floor( Math.random() * 100 ) + 1;
                     thisElement.attr('id', elementID);
                 }
-                var placeholderText     = thisElement.attr('placeholder');
-                var floatingText        = thisElement.data('label');
-                var extraClasses        = thisElement.data('class');
+                floatingText        = thisElement.data('label');
+                extraClasses        = thisElement.data('class');
                 if( !extraClasses ) { extraClasses = ''; }
-                if( !placeholderText || placeholderText === '' ) { placeholderText = "You forgot to add placeholder attribute!"; }
                 if( !floatingText || floatingText === '' ) { floatingText = placeholderText; }
-                this.inputPaddingTop    = parseFloat( thisElement.css('padding-top') ) + parseFloat(settings.paddingOffset);
-                thisElement.wrap('<div class="floatlabel-wrapper" style="position:relative"></div>');
-                thisElement.before('<label for="' + elementID + '" class="label-floatlabel ' + settings.labelClass + ' ' + extraClasses + '">' + floatingText + '</label>');
+                thisElement.wrap('<div class="floatlabel-wrapper"></div>');
+                thisElement.addClass('floatlabel-input');
+                thisElement.before('<label for="' + elementID + '" class="floatlabel-label floatlabel-label-inactive' + settings.labelClass + ' ' + extraClasses + '">' + floatingText + '</label>');
                 this.$label = thisElement.prev('label');
-                this.$label.css({
-                    'position'                      : 'absolute',
-                    'top'                           : settings.labelStartTop,
-                    'left'                          : '8px', //thisElement.css('padding-left'),
-                    'display'                       : 'none',
-                    '-moz-opacity'                  : '0',
-                    '-khtml-opacity'                : '0',
-                    '-webkit-opacity'               : '0',
-                    'opacity'                       : '0',
-                    'font-size'                     : '11px',
-                    'font-weight'                   : 'bold',
-                    'color'                         : self.settings.blurColor
-                });
-                if( !settings.slideInput ) {                    
-                    thisElement.css({ 'padding-top' : this.inputPaddingTop });
-                }
-                thisElement.on('keyup blur change', function( e ) {
+                thisElement.on('keyup blur change input', function( e ) {
                     self.checkValue( e );
                 });
-                thisElement.on('blur', function() { thisElement.prev('label').css({ 'color' : self.settings.blurColor }); });
-                thisElement.on('focus', function() { thisElement.prev('label').css({ 'color' : self.settings.focusColor }); });
-                window.setTimeout( function() {
-                    self.$label.css( animationCss );
-                    self.$element.css( animationCss );
-                }, 100);
+                thisElement.on('blur', function() { thisElement.prev('label').removeClass('floatlabel-label-focus') });
+                thisElement.on('focus', function() { thisElement.prev('label').addClass('floatlabel-label-focus') });
                 this.checkValue();
             },
             checkValue: function( e ) {
                 if( e ) {
                     var keyCode         = e.keyCode || e.which;
-                    if( keyCode === 9 ) { return; }                
+                    if( keyCode === 9 ) { return; }
                 }
-                var thisElement  = this.$element, 
+                var thisElement  = this.$element,
                     currentFlout = thisElement.data('flout');
                 if( thisElement.val() !== "" ) { thisElement.data('flout', '1'); }
                 if( thisElement.val() === "" ) { thisElement.data('flout', '0'); }
@@ -106,35 +75,18 @@
                 var self = this;
                 self.$label.css({ 'display' : 'block' });
                 window.setTimeout(function() {
-                    self.$label.css({
-                        'top'                           : self.settings.labelEndTop,
-                        '-moz-opacity'                  : '1',
-                        '-khtml-opacity'                : '1',
-                        '-webkit-opacity'               : '1',
-                        'opacity'                       : '1'
-                    });
-                    if( self.settings.slideInput ) {
-                        self.$element.css({ 'padding-top' : self.inputPaddingTop });
+                    self.$label.removeClass('floatlabel-label-inactive').addClass('floatlabel-label-active');
+                    if( self.settings.slideInput === true ) {
+                        self.$element.addClass('floatlabel-input-slide');
                     }
-                    self.$element.addClass('active-floatlabel');
                 }, 50);
             },
             hideLabel: function() {
                 var self = this;
-                self.$label.css({
-                    'top'                           : self.settings.labelStartTop,
-                    '-moz-opacity'                  : '0',
-                    '-khtml-opacity'                : '0',
-                    '-webkit-opacity'               : '0',
-                    'opacity'                       : '0'
-                });
-                if( self.settings.slideInput ) {
-                    self.$element.css({ 'padding-top' : parseFloat( self.inputPaddingTop ) - parseFloat(this.settings.paddingOffset) });
+                self.$label.removeClass('floatlabel-label-active').addClass('floatlabel-label-inactive');
+                if( self.settings.slideInput === true ) {
+                    self.$element.removeClass('floatlabel-input-slide');
                 }
-                self.$element.removeClass('active-floatlabel');
-                window.setTimeout(function() {
-                    self.$label.css({ 'display' : 'none' });
-                }, self.settings.transitionDuration * 1000);
             }
         };
         $.fn[ pluginName ] = function ( options ) {
