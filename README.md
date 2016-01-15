@@ -1,5 +1,8 @@
-floatlabels.js
+Floatlabels.js
 ==============
+
+Forked and UPDATED from: https://github.com/simonberger/floatlabels.js
+
 
 Follows the famous Float Label Pattern. Built on jQuery.
 
