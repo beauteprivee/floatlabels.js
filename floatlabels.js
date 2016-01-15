@@ -30,7 +30,8 @@
                     extraClasses
                 ;
                 if( thisElement.prop('tagName').toUpperCase() != 'INPUT' &&
-                    thisElement.prop('tagName').toUpperCase() != 'TEXTAREA') { return; }
+                    thisElement.prop('tagName').toUpperCase() != 'TEXTAREA' &&
+                    thisElement.prop('tagName').toUpperCase() !== 'SELECT') { return; }
                 if( thisElement.prop('tagName').toUpperCase() === 'INPUT' &&
                     !settings.typeMatches.test( thisElement.attr('type') ) ) { return; }
                 placeholderText     = thisElement.attr('placeholder');
@@ -46,6 +47,9 @@
                 if( !floatingText || floatingText === '' ) { floatingText = placeholderText; }
                 thisElement.wrap('<div class="floatlabel-wrapper"></div>');
                 thisElement.addClass('floatlabel-input');
+                if (thisElement.prop('tagName').toUpperCase() == 'SELECT') { 
+                	settings.labelClass = settings.labelClass + ' floatlabel-select-label';
+                }
                 thisElement.before('<label for="' + elementID + '" class="floatlabel-label floatlabel-label-inactive' + settings.labelClass + ' ' + extraClasses + '">' + floatingText + '</label>');
                 this.$label = thisElement.prev('label');
                 thisElement.on('keyup blur change input', function( e ) {
@@ -67,8 +71,10 @@
                 if( thisElement.data('flout') === '1' && currentFlout !== '1' ) {
                     this.showLabel();
                 }
-                if( thisElement.data('flout') === '0' && currentFlout !== '0' ) {
-                    this.hideLabel();
+	            if (thisElement.prop('tagName').toUpperCase() !== 'SELECT') { 
+                	if( thisElement.data('flout') === '0' && currentFlout !== '0' ) {
+    	               this.hideLabel();
+        	        }
                 }
             },
             showLabel: function() {
@@ -77,7 +83,10 @@
                 window.setTimeout(function() {
                     self.$label.removeClass('floatlabel-label-inactive').addClass('floatlabel-label-active');
                     if( self.settings.slideInput === true ) {
-                        self.$element.addClass('floatlabel-input-slide');
+	                    if (self.$element.prop('tagName').toUpperCase() !== 'SELECT') { 
+							self.$element.addClass('floatlabel-input-slide');
+	                    }
+
                     }
                 }, 50);
             },
@@ -85,7 +94,9 @@
                 var self = this;
                 self.$label.removeClass('floatlabel-label-active').addClass('floatlabel-label-inactive');
                 if( self.settings.slideInput === true ) {
-                    self.$element.removeClass('floatlabel-input-slide');
+                    if (self.$element.prop('tagName').toUpperCase() !== 'SELECT') { 
+	                    self.$element.removeClass('floatlabel-input-slide');
+	                }
                 }
             }
         };
