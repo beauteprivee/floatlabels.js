@@ -1,11 +1,11 @@
 {
   "name": "floatlabels.js",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Follows the famous Float Label Pattern. Built on jQuery.",
   "main": "floatlabels.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/clubdesign/floatlabels.js.git"
+    "url": "git+https://github.com/beauteprivee/floatlabels.js.git"
   },
   "keywords": [
     "floatlabel",
@@ -14,7 +14,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/clubdesign/floatlabels.js/issues"
+    "url": "https://github.com/beauteprivee/floatlabels.js/issues"
   },
-  "homepage": "http://clubdesign.github.io/floatlabels.js/"
+  "homepage": "http://github.com/beauteprivee/floatlabels.js/"
 }

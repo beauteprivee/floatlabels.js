@@ -5,6 +5,10 @@
  * Copyright: Copyright 2013 / 2014 http://www.clubdesign.at
  *
  * Adapted for bootstrap projects by Michael Levin 2/20/14
+ *
+ *	Forked and Updated by @beauteprivee
+ *	Author: Amir Moradi
+ *	
  */
 
 ;(function ( $, window, document, undefined ) {
