@@ -1,6 +1,6 @@
 .floatlabel-wrapper {
     position: relative;
-    display: inline-block;
+    /*display: inline-block;*/
 }
 
 .floatlabel-wrapper .floatlabel-label {
@@ -10,10 +10,10 @@
     color: #2996cc;
     z-index: 9999;
 
-    -webkit-transition: all 1.2s ease-in-out;
-    -moz-transition: all 1.2s ease-in-out;    -o-transition: all 1.2s ease-in-out;
-    -ms-transition: all 1.2s ease-in-out;
-    transition: all 1.2s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 .floatlabel-wrapper .floatlabel-select-label{
 
@@ -39,7 +39,7 @@
 
 .floatlabel-wrapper .floatlabel-label-active {
     display: inline-block;
-    top: 6px;
+    top: 1px;
     -moz-opacity: 1;
     -khtml-opacity: 1;
     -webkit-opacity: 1;
@@ -47,13 +47,13 @@
 }
 
 .floatlabel-wrapper input.floatlabel-input {
-    -webkit-transition: all 1.2s ease-in-out;
-    -moz-transition: all 1.2s ease-in-out;
-    -o-transition: all 1.2s ease-in-out;
-    -ms-transition: all 1.2s ease-in-out;
-    transition: all 1.2s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .floatlabel-wrapper input.floatlabel-input-slide {
-    padding-top: 20px !important;
+    padding-top: 13px !important;
 }
